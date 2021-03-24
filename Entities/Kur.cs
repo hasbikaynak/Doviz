@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    class Kur
+   public class Kur
     {
+        public Guid ID { get; set; }
+        public Guid ParaBirimiID { get; set; }
+        public decimal Alis { get; set; }
+        public decimal Satis { get; set; }
+        public DateTime OlusturmaTarihi { get; set; }
     }
 }
