@@ -34,8 +34,9 @@ namespace Core
             {
                 cmd = new SqlCommand("Select * from ParaBirimi", con);
                 BaglantiIslemleri();
+                reader =cmd.ExecuteReader();
             });
-            return cmd.ExecuteReader();
+            return reader;
         }
 
     }
