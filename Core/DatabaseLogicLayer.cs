@@ -59,7 +59,16 @@ namespace Core
             });
             return reader;
         }
-        
+        public SqlDataReader KurGecmisListe()
+        {
+            TryCatchKullan(() =>
+            {
+                cmd = new SqlCommand("Select * from KurGecmis", con);
+                BaglantiIslemleri();
+                reader = cmd.ExecuteReader();
+            });
+            return reader;
+        }
 
     }
 }
