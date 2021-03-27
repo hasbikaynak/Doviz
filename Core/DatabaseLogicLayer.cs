@@ -70,5 +70,16 @@ namespace Core
             return reader;
         }
 
+        public SqlDataReader KurGecmisListe(Guid ParaBirimiID) // overload method
+        {
+            TryCatchKullan(() =>
+            {
+                cmd = new SqlCommand("Select * from KurGecmis where ParaBirimiID=@ParaBirimiID", con);
+                cmd.Parameters.Add("ParaBirimiID", System.Data.SqlDbType.UniqueIdentifier).Value = ParaBirimiID;
+                BaglantiIslemleri();
+                reader = cmd.ExecuteReader();
+            });
+            return reader;
+        }
     }
 }
