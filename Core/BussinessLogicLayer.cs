@@ -27,7 +27,7 @@ namespace Core
             {
                 ParaBirimleri.Add(new ParaBirimi() // while reader read yeni listemizin icini dolduruyoruz.
                 {
-                ID=reader.IsDBNull(0)?Guid.Empty:reader.GetGuid(0),
+                ID=reader.IsDBNull(0)?Guid.Empty:reader.GetGuid(0), // if reader 0. indexi empty degilse o zaman o 0. indexteki degeri al.
                  Code=reader.IsDBNull(1)?string.Empty:reader.GetString(1),
                   Tanim=reader.IsDBNull(2)?string.Empty:reader.GetString(2),
                    UyariLimit=reader.IsDBNull(3)?0:reader.GetDecimal(3)
@@ -38,6 +38,27 @@ namespace Core
             reader.Close(); //readerimizi bitirdik
             DLL.BaglantiIslemleri();//sql connectinimizi kapatiyoruz.
             return ParaBirimleri; //olusturdugumuz parabirimleri listemizi return donuyoruz.
+        }
+        public List<Kur> KurListe()
+        { 
+        List<Kur> KurDegerleri = new List<Kur>();
+
+        SqlDataReader reader = DLL.KurListe();
+            while (reader.Read())
+            {
+                KurDegerleri.Add(new Kur()
+                {
+                    ID = reader.IsDBNull(0) ? Guid.Empty : reader.GetGuid(0),
+                    ParaBirimiID = reader.IsDBNull(1) ? Guid.Empty : reader.GetGuid(1),
+                    Alis = reader.IsDBNull(2) ? 0 : reader.GetDecimal(2),
+                     Satis= reader.IsDBNull(3) ? 0 : reader.GetDecimal(3),
+                      OlusturmaTarihi=reader.IsDBNull(4) ? DateTime.MinValue : reader.GetDateTime(4)
+
+                });
+            }
+            reader.Close();
+            DLL.BaglantiIslemleri();
+            return KurDegerleri;
         }
     }
 }

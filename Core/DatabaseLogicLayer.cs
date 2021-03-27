@@ -60,7 +60,7 @@ namespace Core
                 reader = cmd.ExecuteReader();
             });
             return reader;
-        }
+        } // overload method
         public SqlDataReader KurGecmisListe()
         {
             TryCatchKullan(() =>
@@ -72,7 +72,7 @@ namespace Core
             return reader;
         }
 
-        public SqlDataReader KurGecmisListe(Guid ParaBirimiID) // these are overload methods
+        public SqlDataReader KurGecmisListe(Guid ParaBirimiID) // overload methods
         {
             TryCatchKullan(() =>
             {
