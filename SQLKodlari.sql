@@ -39,7 +39,6 @@ go
 create proc KurKayitEKLE
 (
 @ID uniqueidentifier,
-@KurID uniqueidentifier,
 @ParaBirimiID uniqueidentifier,
 @Alis decimal,
 @Satis decimal,
@@ -51,7 +50,7 @@ begin
 if((select count(*) from Kur where ParaBirimiID=@ParaBirimiID)>0)
 begin 
 --kur tablosundaki mevcut kaydi bizim kur gecmis tablosuna aktarmamiz gerekiyor.
-insert into KurGecmis(ID,KurID,ParaBirimiID,Alis,Satis,OlusturmaTarih)select newid(),@KurID,@ParaBirimiID,@Alis,@Satis,@OlusturmaTarih 
+insert into KurGecmis(ID,KurID,ParaBirimiID,Alis,Satis,OlusturmaTarih)select newid(),ID,@ParaBirimiID,@Alis,@Satis,@OlusturmaTarih 
 from Kur where ParaBirimiID=@ParaBirimiID
 
 

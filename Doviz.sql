@@ -39,7 +39,6 @@ go
 create proc KurKayitEKLE
 (
 @ID uniqueidentifier,
-@KurID uniqueidentifier,
 @ParaBirimiID uniqueidentifier,
 @Alis decimal,
 @Satis decimal,

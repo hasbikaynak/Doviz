@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Entities;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -53,7 +55,7 @@ namespace Core
             TryCatchKullan(() =>
             {
                 cmd = new SqlCommand("Select * from Kur where ParaBirimiID=@ParaBirimiID", con);
-                cmd.Parameters.Add("ParaBirimiID", System.Data.SqlDbType.UniqueIdentifier).Value=ParaBirimiID;
+                cmd.Parameters.Add("ParaBirimiID", System.Data.SqlDbType.UniqueIdentifier).Value=ParaBirimiID; 
                 BaglantiIslemleri();
                 reader = cmd.ExecuteReader();
             });
@@ -70,7 +72,7 @@ namespace Core
             return reader;
         }
 
-        public SqlDataReader KurGecmisListe(Guid ParaBirimiID) // overload method
+        public SqlDataReader KurGecmisListe(Guid ParaBirimiID) // these are overload methods
         {
             TryCatchKullan(() =>
             {
@@ -78,6 +80,19 @@ namespace Core
                 cmd.Parameters.Add("ParaBirimiID", System.Data.SqlDbType.UniqueIdentifier).Value = ParaBirimiID;
                 BaglantiIslemleri();
                 reader = cmd.ExecuteReader();
+            });
+            return reader;
+        }
+
+        public SqlDataReader KurKayitEKLE(Kur kur)
+        {
+            TryCatchKullan(() =>
+            {
+                cmd = new SqlCommand("KurKayitEKLE", con); // eski yaptigimiz islemlerden hatirlarsak, normalde burada insert into veya update gibi methodlar yazardik ancak burada direk 
+                //SQLimde kayitli olan procedure tipli methodumu cagiriyorum.
+                cmd.CommandType = System.Data.CommandType.StoredProcedure; //cagirdigim methodun procedure tipli bir method oldugunu sistemime bildirdim.
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = kur.ID;       // system.data kismini using olarak baslagica ekledim
+                cmd.Parameters.Add("@KurID",SqlDbType.UniqueIdentifier)value = kur.ID
             });
             return reader;
         }
