@@ -84,7 +84,7 @@ namespace Core
             return reader;
         }
 
-        public SqlDataReader KurKayitEKLE(Kur kur)
+        public void KurKayitEKLE(Kur kur)
         {
             TryCatchKullan(() =>
             {
@@ -92,9 +92,14 @@ namespace Core
                 //SQLimde kayitli olan procedure tipli methodumu cagiriyorum.
                 cmd.CommandType = System.Data.CommandType.StoredProcedure; //cagirdigim methodun procedure tipli bir method oldugunu sistemime bildirdim.
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = kur.ID;       // system.data kismini using olarak baslagica ekledim
-                cmd.Parameters.Add("@KurID",SqlDbType.UniqueIdentifier)value = kur.ID
+                cmd.Parameters.Add("@ParaBirimiID", SqlDbType.UniqueIdentifier).Value = kur.ParaBirimiID;
+                cmd.Parameters.Add("@Alis", SqlDbType.Decimal).Value = kur.Alis;
+                cmd.Parameters.Add("@Satis", SqlDbType.Decimal).Value = kur.Satis;
+                cmd.Parameters.Add("@OlusturmaTarih", SqlDbType.DateTime).Value = kur.OlusturmaTarihi;
+                BaglantiIslemleri(); //baglantimizi actik
+                cmd.ExecuteNonQuery(); //sqle gidecek ve kaydimizi ekleyecek bize geriye 1 degeri donecek.
             });
-            return reader;
+            BaglantiIslemleri(); // finally blogu gibi dusunup bunu disariya aldik aksi halde hata gelseydi iceri asla dusmeyecektik.   
         }
     }
 }
