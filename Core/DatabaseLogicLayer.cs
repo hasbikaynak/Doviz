@@ -38,6 +38,28 @@ namespace Core
             });
             return reader;
         }
+        public SqlDataReader KurListe()
+        {
+            TryCatchKullan(() =>
+            {
+                cmd = new SqlCommand("Select * from Kur", con);
+                BaglantiIslemleri();
+                reader = cmd.ExecuteReader();
+            });
+            return reader;
+        }
+        public SqlDataReader KurListe(Guid ParaBirimiID)
+        {
+            TryCatchKullan(() =>
+            {
+                cmd = new SqlCommand("Select * from Kur where ParaBirimiID=@ParaBirimiID", con);
+                cmd.Parameters.Add("ParaBirimiID", System.Data.SqlDbType.UniqueIdentifier).Value=ParaBirimiID;
+                BaglantiIslemleri();
+                reader = cmd.ExecuteReader();
+            });
+            return reader;
+        }
+        
 
     }
 }
