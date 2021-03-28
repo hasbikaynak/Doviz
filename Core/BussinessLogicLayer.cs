@@ -81,6 +81,7 @@ namespace Core
             DLL.BaglantiIslemleri();
             return Kur;
         }
+
         public List<KurGecmis> KurGecmisListe() 
         {
             List<KurGecmis> KurGecmisListe = new List<KurGecmis>();
@@ -105,7 +106,7 @@ namespace Core
 
         }
 
-        public KurGecmis KurGecmisListe(Guid ParaBirimiID)
+        public List<KurGecmis> KurGecmisListe(Guid ParaBirimiID)
         {
             List<KurGecmis> KurGecmisListe = new List<KurGecmis>();
             SqlDataReader reader = DLL.KurGecmisListe(ParaBirimiID);
@@ -126,7 +127,9 @@ namespace Core
             reader.Close();
             DLL.BaglantiIslemleri();
             return KurGecmisListe;
+
         }
+
 
         public void KurKayitEKLE(Guid ID, Guid ParaBirimiID, decimal Alis, decimal Satis, DateTime OlusturmaTarihi)
         {
