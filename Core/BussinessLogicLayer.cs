@@ -130,6 +130,22 @@ namespace Core
 
         public void KurKayitEKLE(Guid ID, Guid ParaBirimiID, decimal Alis, decimal Satis, DateTime OlusturmaTarihi)
         {
+            if (ID != Guid.Empty && ParaBirimiID != Guid.Empty && Alis != 0 && Satis != 0 && OlusturmaTarihi > DateTime.MinValue)
+            {
+                DLL.KurKayitEKLE(new Kur()
+                {
+                    ID = ID,
+                    ParaBirimiID = ParaBirimiID,
+                    Alis = Alis,
+                    Satis = Satis,
+                    OlusturmaTarihi = OlusturmaTarihi
+                });
+            }
+            else
+            {
+                //ekleme islemi gerceklesmedi
+            }
+
             
         }
 
