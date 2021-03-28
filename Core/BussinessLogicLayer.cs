@@ -60,7 +60,7 @@ namespace Core
             DLL.BaglantiIslemleri();
             return KurDegerleri;
         }
-        public Kur KurListe(Guid ParaBirimiID)
+        public Kur KurListe(Guid ParaBirimiID) // huston we might need to chcek here again !!!!!
         {
             Kur Kur = new Kur();
 
@@ -81,7 +81,7 @@ namespace Core
             DLL.BaglantiIslemleri();
             return Kur;
         }
-        public List<KurGecmis> KurGecmisListe() // buradayiz...
+        public List<KurGecmis> KurGecmisListe() 
         {
             List<KurGecmis> KurGecmisListe = new List<KurGecmis>();
             SqlDataReader reader = DLL.KurGecmisListe();
@@ -104,6 +104,35 @@ namespace Core
             return KurGecmisListe;
 
         }
+
+        public KurGecmis KurGecmisListe(Guid ParaBirimiID)
+        {
+            List<KurGecmis> KurGecmisListe = new List<KurGecmis>();
+            SqlDataReader reader = DLL.KurGecmisListe(ParaBirimiID);
+            while (reader.Read())
+            {
+                KurGecmisListe.Add(new KurGecmis()
+                {
+                    ID = reader.IsDBNull(0) ? Guid.Empty : reader.GetGuid(0),
+                    KurID = reader.IsDBNull(1) ? Guid.Empty : reader.GetGuid(1),
+                    ParaBirimiID = reader.IsDBNull(2) ? Guid.Empty : reader.GetGuid(2),
+                    Alis = reader.IsDBNull(3) ? 0 : reader.GetDecimal(3),
+                    Satis = reader.IsDBNull(4) ? 0 : reader.GetDecimal(4),
+                    OlusturmaTarihi = reader.IsDBNull(5) ? DateTime.MinValue : reader.GetDateTime(5)
+
+                });
+
+            }
+            reader.Close();
+            DLL.BaglantiIslemleri();
+            return KurGecmisListe;
+        }
+
+        public void KurKayitEKLE(Guid ID, Guid ParaBirimiID, decimal Alis, decimal Satis, DateTime OlusturmaTarihi)
+        {
+            
+        }
+
 
     }
 }
