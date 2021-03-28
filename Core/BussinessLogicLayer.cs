@@ -81,5 +81,29 @@ namespace Core
             DLL.BaglantiIslemleri();
             return Kur;
         }
+        public List<KurGecmis> KurGecmisListe() // buradayiz...
+        {
+            List<KurGecmis> KurGecmisListe = new List<KurGecmis>();
+            SqlDataReader reader = DLL.KurGecmisListe();
+            while (reader.Read())
+            {
+                KurGecmisListe.Add(new KurGecmis()
+                {
+                    ID = reader.IsDBNull(0) ? Guid.Empty : reader.GetGuid(0),
+                    KurID = reader.IsDBNull(1) ? Guid.Empty : reader.GetGuid(1),
+                    ParaBirimiID = reader.IsDBNull(2) ? Guid.Empty : reader.GetGuid(2),
+                    Alis = reader.IsDBNull(3) ? 0 : reader.GetDecimal(3),
+                    Satis = reader.IsDBNull(4) ? 0 : reader.GetDecimal(4),
+                    OlusturmaTarihi = reader.IsDBNull(5) ? DateTime.MinValue : reader.GetDateTime(5)
+
+                });
+
+            }
+            reader.Close();
+            DLL.BaglantiIslemleri();
+            return KurGecmisListe;
+
+        }
+
     }
 }
